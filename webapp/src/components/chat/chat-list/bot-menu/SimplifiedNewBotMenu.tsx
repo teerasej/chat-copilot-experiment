@@ -1,31 +1,14 @@
 // Copyright (c) Microsoft. All rights reserved.
 
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
-import {
-    Button,
-    Divider,
-    Menu,
-    MenuItem,
-    MenuList,
-    MenuPopover,
-    MenuTrigger,
-    Tooltip,
-} from '@fluentui/react-components';
+import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tooltip } from '@fluentui/react-components';
 import { useChat } from '../../../../libs/hooks';
-import { useAppSelector } from '../../../../redux/app/hooks';
-import { RootState } from '../../../../redux/app/store';
-import { FeatureKeys } from '../../../../redux/features/app/AppState';
 import { Add20 } from '../../../shared/BundledIcons';
 import { InvitationJoinDialog } from '../../invitation-dialog/InvitationJoinDialog';
 
-interface SimplifiedNewBotMenuProps {
-    onFileUpload: () => void;
-}
-
-export const SimplifiedNewBotMenu: FC<SimplifiedNewBotMenuProps> = () => {
+export const SimplifiedNewBotMenu: React.FunctionComponent = () => {
     const chat = useChat();
-    const { features } = useAppSelector((state: RootState) => state.app);
 
     // It needs to keep the menu open to keep the FileUploader reference
     // when the file uploader is clicked.
@@ -33,9 +16,6 @@ export const SimplifiedNewBotMenu: FC<SimplifiedNewBotMenuProps> = () => {
 
     const onAddChat = () => {
         void chat.createChat();
-    };
-    const onJoinClick = () => {
-        setIsJoiningBot(true);
     };
 
     const onCloseDialog = () => {
@@ -54,14 +34,6 @@ export const SimplifiedNewBotMenu: FC<SimplifiedNewBotMenuProps> = () => {
                     <MenuList>
                         <MenuItem data-testid="addNewBotMenuItem" onClick={onAddChat}>
                             New Chat Session
-                        </MenuItem>
-                        <Divider />
-                        <MenuItem
-                            data-testid="joinABotMenuItem"
-                            disabled={!features[FeatureKeys.MultiUserChat].enabled}
-                            onClick={onJoinClick}
-                        >
-                            Join Shared Chat
                         </MenuItem>
                     </MenuList>
                 </MenuPopover>

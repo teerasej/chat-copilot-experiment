@@ -16,19 +16,15 @@ import {
     tokens,
     Tooltip,
 } from '@fluentui/react-components';
-import { Edit24Filled, EditRegular, Map16Regular, Person16Regular } from '@fluentui/react-icons';
+import { Edit24Filled, EditRegular } from '@fluentui/react-icons';
 import React, { useState } from 'react';
 import { useAppSelector } from '../../redux/app/hooks';
 import { RootState } from '../../redux/app/store';
 import { FeatureKeys } from '../../redux/features/app/AppState';
 import { Alerts } from '../shared/Alerts';
+import { SimplifiedNewBotMenu } from './chat-list/bot-menu/SimplifiedNewBotMenu';
 import { ChatRoom } from './ChatRoom';
-import { ParticipantsList } from './controls/ParticipantsList';
-import { ShareBotMenu } from './controls/ShareBotMenu';
 import { EditChatName } from './shared/EditChatName';
-import { DocumentsTab } from './tabs/DocumentsTab';
-import { PersonaTab } from './tabs/PersonaTab';
-import { PlansTab } from './tabs/PlansTab';
 
 const useClasses = makeStyles({
     root: {
@@ -92,7 +88,6 @@ export const ChatWindow: React.FC = () => {
     const classes = useClasses();
     const { features } = useAppSelector((state: RootState) => state.app);
     const { conversations, selectedId } = useAppSelector((state: RootState) => state.conversations);
-    const showShareBotMenu = features[FeatureKeys.BotAsDocs].enabled || features[FeatureKeys.MultiUserChat].enabled;
     const chatName = conversations[selectedId].title;
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -149,64 +144,14 @@ export const ChatWindow: React.FC = () => {
                         <Tab data-testid="chatTab" id="chat" value="chat" aria-label="Chat Tab" title="Chat Tab">
                             Chat
                         </Tab>
-                        <Tab
-                            data-testid="documentsTab"
-                            id="documents"
-                            value="documents"
-                            aria-label="Documents Tab"
-                            title="Documents Tab"
-                        >
-                            Documents
-                        </Tab>
-                        {features[FeatureKeys.PluginsPlannersAndPersonas].enabled && (
-                            <>
-                                <Tab
-                                    data-testid="plansTab"
-                                    id="plans"
-                                    value="plans"
-                                    icon={<Map16Regular />}
-                                    aria-label="Plans Tab"
-                                    title="Plans Tab"
-                                >
-                                    Plans
-                                </Tab>
-                                <Tab
-                                    data-testid="personaTab"
-                                    id="persona"
-                                    value="persona"
-                                    icon={<Person16Regular />}
-                                    aria-label="Persona Tab"
-                                    title="Persona Tab"
-                                >
-                                    Persona
-                                </Tab>
-                            </>
-                        )}
                     </TabList>
                 </div>
                 <div className={classes.controls}>
-                    {!features[FeatureKeys.SimplifiedExperience].enabled && (
-                        <div data-testid="chatParticipantsView">
-                            <ParticipantsList participants={conversations[selectedId].users} />
-                        </div>
-                    )}
-                    {showShareBotMenu && (
-                        <div>
-                            <ShareBotMenu chatId={selectedId} chatTitle={chatName} />
-                        </div>
-                    )}
+                    <SimplifiedNewBotMenu />
                 </div>
             </div>
             {selectedTab === 'chat' && <ChatRoom />}
-            {selectedTab === 'documents' && <DocumentsTab />}
-            {selectedTab === 'plans' && (
-                <PlansTab
-                    setChatTab={() => {
-                        setSelectedTab('chat');
-                    }}
-                />
-            )}
-            {selectedTab === 'persona' && <PersonaTab />}
+
             {selectedTab !== 'chat' && (
                 <div className={classes.alerts}>
                     <Alerts />

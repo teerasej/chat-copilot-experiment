@@ -64,12 +64,6 @@ export interface AppState {
 export enum FeatureKeys {
     DarkMode,
     SimplifiedExperience,
-    PluginsPlannersAndPersonas,
-    AzureContentSafety,
-    AzureAISearch,
-    BotAsDocs,
-    MultiUserChat,
-    RLHF, // Reinforcement Learning from Human Feedback
 }
 
 export const Features = {
@@ -81,59 +75,14 @@ export const Features = {
         enabled: true,
         label: 'Simplified Chat Experience',
     },
-    [FeatureKeys.PluginsPlannersAndPersonas]: {
-        enabled: true,
-        label: 'Plugins & Planners & Personas',
-        description: 'The Plans and Persona tabs are hidden until you turn this on',
-    },
-    [FeatureKeys.AzureContentSafety]: {
-        enabled: false,
-        label: 'Azure Content Safety',
-        inactive: true,
-    },
-    [FeatureKeys.AzureAISearch]: {
-        enabled: false,
-        label: 'Azure AI Search',
-        inactive: true,
-    },
-    [FeatureKeys.BotAsDocs]: {
-        enabled: false,
-        label: 'Export Chat Sessions',
-    },
-    [FeatureKeys.MultiUserChat]: {
-        enabled: false,
-        label: 'Live Chat Session Sharing',
-        description: 'Enable multi-user chat sessions. Not available when authorization is disabled.',
-    },
-    [FeatureKeys.RLHF]: {
-        enabled: false,
-        label: 'Reinforcement Learning from Human Feedback',
-        description: 'Enable users to vote on model-generated responses. For demonstration purposes only.',
-        // TODO: [Issue #42] Send and store feedback in backend
-    },
 };
 
 export const Settings = [
     {
         // Basic settings has to stay at the first index. Add all new settings to end of array.
         title: 'Basic',
-        features: [FeatureKeys.DarkMode, FeatureKeys.PluginsPlannersAndPersonas],
+        features: [FeatureKeys.DarkMode],
         stackVertically: true,
-    },
-    {
-        title: 'Display',
-        features: [FeatureKeys.SimplifiedExperience],
-        stackVertically: true,
-    },
-    {
-        title: 'Azure AI',
-        features: [FeatureKeys.AzureContentSafety, FeatureKeys.AzureAISearch],
-        stackVertically: true,
-    },
-    {
-        title: 'Experimental',
-        description: 'The related icons and menu options are hidden until you turn this on',
-        features: [FeatureKeys.BotAsDocs, FeatureKeys.MultiUserChat, FeatureKeys.RLHF],
     },
 ];
 

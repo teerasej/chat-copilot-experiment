@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import Chat from './components/chat/Chat';
 import { Loading, Login } from './components/views';
 import { AuthHelper } from './libs/auth/AuthHelper';
-import { useChat, useFile } from './libs/hooks';
+import { useChat } from './libs/hooks';
 import { AlertType } from './libs/models/AlertType';
 import { useAppDispatch, useAppSelector } from './redux/app/hooks';
 import { RootState } from './redux/app/store';
@@ -67,7 +67,6 @@ const App = () => {
     const isAuthenticated = useIsAuthenticated();
 
     const chat = useChat();
-    const file = useFile();
 
     useEffect(() => {
         if (isMaintenance && appState !== AppState.ProbeForBackend) {
@@ -114,9 +113,6 @@ const App = () => {
                     .catch(() => {
                         setAppState(AppState.ErrorLoadingChats);
                     }),
-
-                // Check if content safety is enabled
-                file.getContentSafetyStatus(),
 
                 // Load service information
                 chat.getServiceInfo().then((serviceInfo) => {

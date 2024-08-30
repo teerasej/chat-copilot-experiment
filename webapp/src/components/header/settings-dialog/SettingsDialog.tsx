@@ -16,7 +16,6 @@ import {
     DialogTitle,
     DialogTrigger,
     Divider,
-    Label,
     makeStyles,
     shorthands,
     tokens,
@@ -80,20 +79,6 @@ export const SettingsDialog: React.FC<ISettingsDialogProps> = ({ open, closeDial
                                 </AccordionPanel>
                             </AccordionItem>
                             <Divider />
-                            <AccordionItem value="advanced">
-                                <AccordionHeader expandIconPosition="end" data-testid="advancedSettingsFoldup">
-                                    <h3>Advanced</h3>
-                                </AccordionHeader>
-                                <AccordionPanel>
-                                    <Body1 color={tokens.colorNeutralForeground3}>
-                                        Some settings are disabled by default as they are not fully supported yet.
-                                    </Body1>
-                                    {settings.slice(1).map((setting) => {
-                                        return <SettingSection key={setting.title} setting={setting} />;
-                                    })}
-                                </AccordionPanel>
-                            </AccordionItem>
-                            <Divider />
                             <AccordionItem value="about">
                                 <AccordionHeader expandIconPosition="end">
                                     <h3>About</h3>
@@ -113,12 +98,6 @@ export const SettingsDialog: React.FC<ISettingsDialogProps> = ({ open, closeDial
                     </DialogContent>
                 </DialogBody>
                 <DialogActions position="start" className={dialogClasses.footer}>
-                    <Label size="small" color="brand" className={classes.footer}>
-                        Join the Semantic Kernel open source community!{' '}
-                        <a href="https://aka.ms/semantic-kernel" target="_blank" rel="noreferrer">
-                            Learn More
-                        </a>
-                    </Label>
                     <DialogTrigger disableButtonEnhancement>
                         <Button appearance="secondary" data-testid="userSettingsCloseButton">
                             Close

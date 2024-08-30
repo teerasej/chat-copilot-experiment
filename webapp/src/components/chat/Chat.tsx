@@ -3,7 +3,6 @@ import React from 'react';
 import { AuthHelper } from '../..//libs/auth/AuthHelper';
 import { AppState, useClasses } from '../../App';
 import { UserSettingsMenu } from '../header/UserSettingsMenu';
-import { PluginGallery } from '../open-api-plugins/PluginGallery';
 import { BackendProbe, ChatView, Error, Loading } from '../views';
 
 const Chat = ({
@@ -31,7 +30,6 @@ const Chat = ({
                 {appState > AppState.SettingUserInfo && (
                     <div className={classes.cornerItems}>
                         <div className={classes.cornerItems}>
-                            <PluginGallery />
                             <UserSettingsMenu
                                 setLoadingState={() => {
                                     setAppState(AppState.SigningOut);
